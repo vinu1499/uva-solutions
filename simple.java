@@ -1,33 +1,50 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-class Main {
-
-	public static void main (String [] abc) throws IOException  {
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-		int testCaseCount=Integer.parseInt(br.readLine());
-		for (int testCase=0;testCase<testCaseCount;testCase++) {
-			StringTokenizer st=new StringTokenizer(br.readLine());
-			int a=Integer.parseInt(st.nextToken());
-			int b=Integer.parseInt(st.nextToken());
-			int c=Integer.parseInt(st.nextToken());
-			boolean found=false;
-			for (int x=-22;x<=22 && !found;x++) {
-				for (int y=-100;y<=100 && !found;y++) {
-					if (x!=y && x*x+y*y<=c) {
-						int z=a-x-y;
-						if (x!=z && y!=z && x*y*z==b && x*x+y*y+z*z==c) {
-							System.out.println(x+" "+y+" "+z);
-							found=true;
-						}
-					}
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc=new Scanner(System.in);
+		int c=1;
+		while(true)
+		{
+		
+			int n=sc.nextInt();
+			if(n==0)
+			   break;
+			System.out.println("Case "+(c++)+":");
+			int a[]=new int[n];
+			for(int i=0;i<n;i++)
+			    a[i]=sc.nextInt();
+			int m=sc.nextInt();
+			int b[]=new int[m];
+			for(int i=0;i<m;i++)
+			    b[i]=sc.nextInt();
+			ArrayList<Integer> al=new ArrayList<Integer>();
+			for(int i=0;i<n;i++)
+			{
+				for(int j=i+1;j<n;j++)
+				{
+				   al.add(a[i]+a[j]);
 				}
 			}
-			if (!found) {
-				System.out.println("No solution.");
+			Collections.sort(al);
+			for(int i=0;i<m;i++)
+			{
+				int min=Integer.MAX_VALUE,val=0;
+				for(int j=0;j<al.size();j++)
+				{
+					if(min>Math.abs(al.get(j)-b[i]))
+					{
+						min=Math.abs(al.get(j)-b[i]);
+						val=al.get(j);
+					}
+				}
+				System.out.println("Closest sum to "+b[i]+" is "+val+".");
 			}
+		
 		}
- 	}
+	}
 }
